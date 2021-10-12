@@ -86,16 +86,11 @@ with DAG(
         task_id="three_task",
         python_callable=print_stuff,
         executor_config={
-            "pod_override": k8s.V1Pod(
-                    spec=k8s.V1PodSpec(
-                        containers=[
-                            k8s.V1Container(
-                                name="base",                                
-                            )
-                        ],
-                        service_account_name="chriske"
-                    )
-                ),
+            "KubernetesExecutor": {
+                "request_memory": "128Mi",
+                "limit_memory": "128Mi",                
+                "serviceAccountName": "chriske",
+            }
         },
     )
 
