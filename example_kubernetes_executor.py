@@ -87,7 +87,15 @@ with DAG(
         python_callable=print_stuff,
         executor_config={
             "pod_override": k8s.V1Pod(
-                    spec=k8s.V1PodSpec(service_account_name="chriske"))
+                    spec=k8s.V1PodSpec(
+                        containers=[
+                            k8s.V1Container(
+                                name="base",                                
+                            )
+                        ],
+                        service_account_name="chriske"
+                    )
+                ),
         },
     )
 
