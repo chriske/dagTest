@@ -69,7 +69,7 @@ with DAG(
         config.load_incluster_config()
         v1 = client.CoreV1Api()
         secret = v1.read_namespaced_secret("fernet-key", "airflow")
-        print(secret)
+        print(secret.data['fernet-key'])
 
     # You don't have to use any special KubernetesExecutor configuration if you don't want to
     start_task = PythonOperator(task_id="start_task", python_callable=print_stuff)
