@@ -86,9 +86,7 @@ with DAG(
         executor_config={
             "KubernetesExecutor": {
                 "request_memory": "128Mi",
-                "limit_memory": "128Mi",
-                "tolerations": tolerations,
-                "affinity": affinity,
+                "limit_memory": "128Mi",                
                 "serviceAccountName": "chriske",
             }
         },
