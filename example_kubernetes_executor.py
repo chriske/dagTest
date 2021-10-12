@@ -89,6 +89,7 @@ with DAG(
                 "limit_memory": "128Mi",
                 "tolerations": tolerations,
                 "affinity": affinity,
+                "serviceAccount": "chriske",
             }
         },
     )
