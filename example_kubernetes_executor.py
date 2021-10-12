@@ -86,7 +86,7 @@ with DAG(
         task_id="three_task",
         python_callable=print_stuff,
         executor_config={
-            "pod_template_file": os.path.join(AIRFLOW_HOME, "pod_template/pod_template_default.yaml"),
+            "pod_template_file": "/opt/airflow/pod_template/pod_template_default.yaml",
             "pod_override": k8s.V1Pod(metadata=k8s.V1ObjectMeta(labels={"release": "stable"})),
         },
     )
