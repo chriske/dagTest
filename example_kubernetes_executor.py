@@ -29,6 +29,8 @@ args = {
     'owner': 'airflow',
 }
 
+from kubernetes.client import models as k8s
+
 with DAG(
     dag_id='example_kubernetes_executor',
     default_args=args,
