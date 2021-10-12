@@ -24,6 +24,7 @@ from airflow import DAG
 from airflow.example_dags.libs.helper import print_stuff
 from airflow.operators.python import PythonOperator
 from airflow.utils.dates import days_ago
+from kubernetes import client, config
 
 args = {
     'owner': 'airflow',
@@ -63,6 +64,12 @@ with DAG(
         return_code = os.system("zip")
         if return_code != 0:
             raise SystemError("The zip binary is not found")
+    
+    def readSecret():
+        config.load_kube_config()
+        v1 = client.CoreV1Api()
+        secret = v1.read_namespaced_secret("fernet-key", "airflow")
+        print(secret)
 
     # You don't have to use any special KubernetesExecutor configuration if you don't want to
     start_task = PythonOperator(task_id="start_task", python_callable=print_stuff)
@@ -84,7 +91,7 @@ with DAG(
     # Limit resources on this operator/task with node affinity & tolerations
     three_task = PythonOperator(
         task_id="three_task",
-        python_callable=print_stuff,
+        python_callable=readSecret,
         executor_config={
             "pod_template_file": "/opt/airflow/pod_template/pod_template_default.yaml",
              "pod_override": k8s.V1Pod(
@@ -105,6 +112,7 @@ with DAG(
         task_id="four_task",
         python_callable=print_stuff,
         executor_config={"KubernetesExecutor": {"labels": {"foo": "bar"}}},
+        
     )
 
     start_task >> [one_task, two_task, three_task, four_task]
