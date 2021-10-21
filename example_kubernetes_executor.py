@@ -101,7 +101,7 @@ with DAG(
                                 name="base",                                
                             )
                         ],
-                        service_account_name="chriske"
+                        service_account_name="SA_PLACEHOLDER"
                     )
                 ),
         },
@@ -111,8 +111,19 @@ with DAG(
     four_task = PythonOperator(
         task_id="four_task",
         python_callable=print_stuff,
-        executor_config={"KubernetesExecutor": {"labels": {"foo": "bar"}}},
-        
+        executor_config={
+            "pod_template_file": "/opt/airflow/pod_template/pod_template_default.yaml",
+             "pod_override": k8s.V1Pod(
+                    spec=k8s.V1PodSpec(
+                        containers=[
+                            k8s.V1Container(
+                                name="base",                                
+                            )
+                        ],
+                        service_account_name="SA_PLACEHOLDER"
+                    )
+                ),
+        },        
     )
 
     start_task >> [one_task, two_task, three_task, four_task]
