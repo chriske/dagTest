@@ -74,7 +74,7 @@ with DAG(
                         )
                     ],
                     volumes=[
-                            k8s.V1Volume(name="dag-temp", empty_dir="dag-temp"),
+                            k8s.V1Volume(name="dag-temp", persistent_volume_claim="dag-temp"),
                     ],
                     service_account_name="dag-test-runner"
                 )
@@ -96,7 +96,7 @@ with DAG(
                         )
                     ],
                     volumes=[
-                            k8s.V1Volume(name="dag-temp", empty_dir="dag-temp"),
+                            k8s.V1Volume(name="dag-temp", persistent_volume_claim="dag-temp"),
                     ],
                     service_account_name="dag-test-runner"
                 )
@@ -118,7 +118,7 @@ with DAG(
                         )
                     ],
                     volumes=[
-                            k8s.V1Volume(name="dag-temp", empty_dir="dag-temp"),
+                            k8s.V1Volume(name="dag-temp", persistent_volume_claim="dag-temp"),
                     ],
                     service_account_name="dag-test-runner"
                 )
