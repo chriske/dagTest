@@ -70,7 +70,12 @@ with DAG(
                 spec=k8s.V1PodSpec(
                     containers=[
                         k8s.V1Container(
-                            name="base",                                
+                            name="base",
+                            env_from=[
+                                V1EnvFromSource(
+                                    config_map_ref=V1ConfigMapEnvSource(name="demo-log-config-demo00")
+                                )
+                            ]
                         )
                     ],
                     volumes=[
@@ -92,7 +97,12 @@ with DAG(
                 spec=k8s.V1PodSpec(
                     containers=[
                         k8s.V1Container(
-                            name="base",                                
+                            name="base",
+                            env_from=[
+                                V1EnvFromSource(
+                                    config_map_ref=V1ConfigMapEnvSource(name="demo-log-config-demo00")
+                                )
+                            ]
                         )
                     ],
                     volumes=[
@@ -114,7 +124,12 @@ with DAG(
                 spec=k8s.V1PodSpec(
                     containers=[
                         k8s.V1Container(
-                            name="base",                                
+                            name="base",
+                            env_from=[
+                                V1EnvFromSource(
+                                    config_map_ref=V1ConfigMapEnvSource(name="demo-log-config-demo00")
+                                )
+                            ]
                         )
                     ],
                     volumes=[
@@ -136,11 +151,16 @@ with DAG(
                 spec=k8s.V1PodSpec(
                     containers=[
                         k8s.V1Container(
-                            name="base",                                
+                            name="base",
+                            env_from=[
+                                V1EnvFromSource(
+                                    config_map_ref=V1ConfigMapEnvSource(name="demo-log-config-demo00")
+                                )
+                            ]
                         )
                     ],
                     volumes=[
-                            k8s.V1Volume(name="dag-temp", empty_dir="dag-temp"),
+                            k8s.V1Volume(name="dag-temp", persistent_volume_claim=k8s.V1PersistentVolumeClaimVolumeSource(claim_name="dag-temp")),
                     ],
                     service_account_name="dag-test-runner"
                 )
@@ -158,7 +178,12 @@ with DAG(
                 spec=k8s.V1PodSpec(
                     containers=[
                         k8s.V1Container(
-                            name="base",                                
+                            name="base",
+                            env_from=[
+                                V1EnvFromSource(
+                                    config_map_ref=V1ConfigMapEnvSource(name="demo-log-config-demo00")
+                                )
+                            ]
                         )
                     ],
                     service_account_name="dag-test-runner"
