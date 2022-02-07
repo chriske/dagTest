@@ -72,8 +72,8 @@ with DAG(
                         k8s.V1Container(
                             name="base",
                             env_from=[
-                                V1EnvFromSource(
-                                    config_map_ref=V1ConfigMapEnvSource(name="demo-log-config-demo00")
+                                k8s.V1EnvFromSource(
+                                    config_map_ref=k8s.V1ConfigMapEnvSource(name="demo-log-config-demo00")
                                 )
                             ]
                         )
@@ -99,8 +99,8 @@ with DAG(
                         k8s.V1Container(
                             name="base",
                             env_from=[
-                                V1EnvFromSource(
-                                    config_map_ref=V1ConfigMapEnvSource(name="demo-log-config-demo00")
+                                k8s.V1EnvFromSource(
+                                    config_map_ref=k8s.V1ConfigMapEnvSource(name="demo-log-config-demo00")
                                 )
                             ]
                         )
@@ -126,8 +126,8 @@ with DAG(
                         k8s.V1Container(
                             name="base",
                             env_from=[
-                                V1EnvFromSource(
-                                    config_map_ref=V1ConfigMapEnvSource(name="demo-log-config-demo00")
+                                k8s.V1EnvFromSource(
+                                    config_map_ref=k8s.V1ConfigMapEnvSource(name="demo-log-config-demo00")
                                 )
                             ]
                         )
@@ -153,8 +153,8 @@ with DAG(
                         k8s.V1Container(
                             name="base",
                             env_from=[
-                                V1EnvFromSource(
-                                    config_map_ref=V1ConfigMapEnvSource(name="demo-log-config-demo00")
+                                k8s.V1EnvFromSource(
+                                    config_map_ref=k8s.V1ConfigMapEnvSource(name="demo-log-config-demo00")
                                 )
                             ]
                         )
@@ -180,8 +180,8 @@ with DAG(
                         k8s.V1Container(
                             name="base",
                             env_from=[
-                                V1EnvFromSource(
-                                    config_map_ref=V1ConfigMapEnvSource(name="demo-log-config-demo00")
+                                k8s.V1EnvFromSource(
+                                    config_map_ref=k8s.V1ConfigMapEnvSource(name="demo-log-config-demo00")
                                 )
                             ]
                         )
