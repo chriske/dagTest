@@ -16,6 +16,7 @@
 # specific language governing permissions and limitations
 # under the License.
 
+from kubernetes.client import models as k8s
 
 # pylint: disable=missing-docstring
 def print_stuff():  # noqa: D103
