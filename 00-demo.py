@@ -21,7 +21,7 @@ This is an example dag for using the Kubernetes Executor.
 import os
 
 from airflow import DAG
-from libs.helper import print_stuff2
+from libs.helper import print_stuff, getExecutorConfig
 from airflow.operators.python import PythonOperator
 from airflow.utils.dates import days_ago
 from kubernetes import client, config
@@ -63,34 +63,18 @@ with DAG(
     
     start_task = PythonOperator(
         task_id="start_task",
-        python_callable=print_stuff2,
-        executor_config={
-            "pod_template_file": "/opt/airflow/pod_template/pod_template_default.yaml",
-            "pod_override": k8s.V1Pod(
-                spec=k8s.V1PodSpec(
-                    containers=[
-                        k8s.V1Container(
-                            name="base",
-                            env_from=[
-                                k8s.V1EnvFromSource(
-                                    config_map_ref=k8s.V1ConfigMapEnvSource(name="demo-log-config-demo00")
-                                )
-                            ]
-                        )
-                    ],
-                    volumes=[
-                            k8s.V1Volume(name="dag-temp", persistent_volume_claim=k8s.V1PersistentVolumeClaimVolumeSource(claim_name="dag-temp")),
-                    ],
-                    service_account_name="dag-test-runner"
-                )
-            ),
-        },
+        python_callable=print_stuff,
+        executor_config=getExecutorConfig(
+            pod_template="/opt/airflow/pod_template/pod_template_default.yaml",
+            configmap="demo-log-config-demo00",
+            pvc="dag-temp",
+            sa_name="dag-test-runner")        
     )
 
     
     one_task = PythonOperator(
         task_id="one_task",
-        python_callable=print_stuff2,
+        python_callable=print_stuff,
         executor_config={
             "pod_template_file": "/opt/airflow/pod_template/pod_template_default.yaml",
             "pod_override": k8s.V1Pod(
@@ -117,7 +101,7 @@ with DAG(
    
     two_task = PythonOperator(
         task_id="two_task",
-        python_callable=print_stuff2,
+        python_callable=print_stuff,
         executor_config={
             "pod_template_file": "/opt/airflow/pod_template/pod_template_default.yaml",
             "pod_override": k8s.V1Pod(
@@ -171,7 +155,7 @@ with DAG(
    
     four_task = PythonOperator(
         task_id="four_task",
-        python_callable=print_stuff2,
+        python_callable=print_stuff,
         executor_config={
             "pod_template_file": "/opt/airflow/pod_template/pod_template_default.yaml",
             "pod_override": k8s.V1Pod(
