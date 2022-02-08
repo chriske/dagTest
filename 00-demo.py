@@ -21,7 +21,7 @@ This is an example dag for using the Kubernetes Executor.
 import os
 
 from airflow import DAG
-from airflow.example_dags.libs.helper import print_stuff
+from airflow.dags.libs.helper import print_stuff2
 from airflow.operators.python import PythonOperator
 from airflow.utils.dates import days_ago
 from kubernetes import client, config
@@ -63,7 +63,7 @@ with DAG(
     
     start_task = PythonOperator(
         task_id="start_task",
-        python_callable=print_stuff,
+        python_callable=print_stuff2,
         executor_config={
             "pod_template_file": "/opt/airflow/pod_template/pod_template_default.yaml",
             "pod_override": k8s.V1Pod(
@@ -90,7 +90,7 @@ with DAG(
     
     one_task = PythonOperator(
         task_id="one_task",
-        python_callable=print_stuff,
+        python_callable=print_stuff2,
         executor_config={
             "pod_template_file": "/opt/airflow/pod_template/pod_template_default.yaml",
             "pod_override": k8s.V1Pod(
@@ -117,7 +117,7 @@ with DAG(
    
     two_task = PythonOperator(
         task_id="two_task",
-        python_callable=print_stuff,
+        python_callable=print_stuff2,
         executor_config={
             "pod_template_file": "/opt/airflow/pod_template/pod_template_default.yaml",
             "pod_override": k8s.V1Pod(
@@ -171,7 +171,7 @@ with DAG(
    
     four_task = PythonOperator(
         task_id="four_task",
-        python_callable=print_stuff,
+        python_callable=print_stuff2,
         executor_config={
             "pod_template_file": "/opt/airflow/pod_template/pod_template_default.yaml",
             "pod_override": k8s.V1Pod(
