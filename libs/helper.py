@@ -21,5 +21,5 @@
 def print_stuff():  # noqa: D103
     print("annotated!")
 
-    def print_stuff2():  # noqa: D103
+def print_stuff2():  # noqa: D103
     print("annotated2!")
