@@ -26,7 +26,7 @@ from airflow.operators.python import PythonOperator
 from airflow.utils.dates import days_ago
 from kubernetes import client, config
 
-import cx_Oracle
+
 
 from airflow.utils.email import send_email_smtp
 
@@ -57,13 +57,15 @@ with DAG(
 ) as dag:
         
     def readSecret():
+        import cx_Oracle
+        
         config.load_incluster_config()
         v1 = client.CoreV1Api()
         secret = v1.read_namespaced_secret("super-secret", "airflow")
         print(secret.data['super-secret'])
 
     
-    start_task = PythonOperator(
+    start_task = PythonOperator(               
         task_id="start_task",
         python_callable=print_stuff,
         executor_config=getExecutorConfig(
