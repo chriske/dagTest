@@ -26,8 +26,6 @@ from airflow.operators.python import PythonOperator
 from airflow.utils.dates import days_ago
 from kubernetes import client, config
 
-
-
 from airflow.utils.email import send_email_smtp
 
 def new_email_alert(self, **kwargs):
@@ -73,8 +71,17 @@ with DAG(
             configmap="demo-log-config-demo00",
             pvc="dag-temp",
             sa_name="dag-test-runner")        
+    )    
+    
+    run_this = BashOperator(
+        task_id='run_after_loop',
+        executor_config=getExecutorConfig(
+            pod_template="/opt/airflow/pod_template/pod_template_default.yaml",
+            configmap="demo-log-config-demo00",
+            pvc="dag-temp",
+            sa_name="dag-test-runner"),
+        bash_command='echo 1',
     )
-
     
     one_task = PythonOperator(
         task_id="one_task",
@@ -183,4 +190,4 @@ with DAG(
         },        
     )
 
-    start_task >> [one_task, two_task, three_task, four_task]
+    start_task >> [one_task, two_task, three_task, four_task, run_this]
