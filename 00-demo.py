@@ -23,6 +23,7 @@ import os
 from airflow import DAG
 from libs.helper import print_stuff, getExecutorConfig
 from airflow.operators.python import PythonOperator
+from airflow.operators.bash import BashOperator
 from airflow.utils.dates import days_ago
 from kubernetes import client, config
 
