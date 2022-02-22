@@ -26,6 +26,8 @@ from airflow.operators.python import PythonOperator
 from airflow.utils.dates import days_ago
 from kubernetes import client, config
 
+import cx_Oracle
+
 from airflow.utils.email import send_email_smtp
 
 def new_email_alert(self, **kwargs):
